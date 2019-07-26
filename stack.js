@@ -79,32 +79,35 @@ function is_palindrome(s) {
 }
 
 function balanced(s) {
-
   let stack = new Stack();
   let last = '';
+
   for (let i = 0; i < s.length; i++) {
     if (s[i] === '(') {
       console.log(`step ${i} push ${s[i]} to stack `);
       stack.push(s[i]);
     }
-
     if (s[i] === ')') {
       console.log(`step ${i} pop ${s[i]} from stack`);
       last = stack.pop();
       if (last === '(' && s[i] !== ')') {
-        return i;
+        return;
       }
     }
   }
+
   if (stack.top !== null) {
     console.log(`character #${s.length - 1}: has no matching closing )`);
+    return false;
   } else {
     console.log('All parentheses match');
+    return true;
   }
 }
 
 function main() {
-  balanced('()()() (()) ()');
+  balanced('()()() (((');
+  balanced('()()() ()');
   // const starTrek = new Stack();
   // starTrek.push('Kirk');
   // starTrek.push('Spock');
