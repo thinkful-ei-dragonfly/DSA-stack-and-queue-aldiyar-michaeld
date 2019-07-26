@@ -25,6 +25,7 @@ class Queue {
     if (this.last) {
       this.last.next = node;
     }
+    this.last = node;
   }
 
   dequeue() {
@@ -43,7 +44,7 @@ class Queue {
 }
 
 function peek(queue) {
-  if(queue.first === null) {
+  if (queue.first === null) {
     return null;
   } else {
     return queue.first.value;
@@ -55,18 +56,13 @@ function isEmpty(queue) {
 }
 
 function display(queue) {
-  // let currNode = queue.first;
-
-  // while(currNode !== null) {
-  //   console.log(currNode.value);
-  //   currNode = currNode.next;
-  // }
+  while (queue.first !== null) {
+    console.log(queue.first.value);
+    queue.first = queue.first.next;
+  }
 }
 
-
-
-
-function main () {
+function main() {
   const startrekQ = new Queue();
   startrekQ.enqueue('Kirk');
   startrekQ.enqueue('Spock');
