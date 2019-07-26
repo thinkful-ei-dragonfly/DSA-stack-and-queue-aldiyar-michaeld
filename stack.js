@@ -1,4 +1,6 @@
 /* eslint-disable strict */
+'ust strict';
+
 class _Node {
   constructor(value, next) {
     this.value = value;
@@ -76,6 +78,31 @@ function is_palindrome(s) {
   
 }
 
+function balanced(string) {
+  //   Input: exp = “[ () ] { }{ [ ()() ]() }”
+  //   Output: Balanced
+  //   Input: exp = “[(])”
+  //   Output: Not Balanced
+
+  let stack = new Stack();
+
+  for (let i = 0; i < string.length; i++) {
+    let char = string[i];
+    if ( char === '(') {
+      stack.push(char);
+    } 
+    if ( char === ')' && stack !== null) {
+      stack.pop();
+    }
+    
+    }
+    if (isEmpty(stack)) {
+      console.log('Expression is Balanced')
+    } else {
+      console.log('Expression is NOT Balanced')
+    }
+  }
+
 
 function main() {
   const starTrek = new Stack();
@@ -88,18 +115,20 @@ function main() {
   starTrek.pop();
   
 
-  is_palindrome('lasd asfkm iwjodm ,,,,,')
-
+  balanced("[()]{}{[()()]()}")
+  balanced("[(])())()")
+  
   // console.log(starTrek);
   // console.log(peek(starTrek));
   // console.log(isEmpty(starTrek));
   // display(starTrek);
-
+  
   // True, true, true, false
-console.log(is_palindrome("dad"));
-console.log(is_palindrome("A man, a plan, a canal: Panama"));
-console.log(is_palindrome("1001"));
-console.log(is_palindrome("Tauhida"));
+  // is_palindrome('lasd asfkm iwjodm ,,,,,')
+// console.log(is_palindrome("dad"));
+// console.log(is_palindrome("A man, a plan, a canal: Panama"));
+// console.log(is_palindrome("1001"));
+// console.log(is_palindrome("Tauhida"));
 }
 
 main();
