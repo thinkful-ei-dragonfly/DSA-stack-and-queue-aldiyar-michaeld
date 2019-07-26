@@ -26,25 +26,27 @@ class Stack {
   pop() {
     const node = this.top;
     this.top = node.next;
-    return node.data;
+    return node.value;
   }
 }
+
 function peek(stack) {
-  if (!stack.top) {
-    return 'Stack is empty';
+  if (stack.top === null) {
+    return null;
   } else {
     return stack.top.value;
   }
 }
 
 function isEmpty(stack) {
-  if (!stack.top) {
-    console.log('Stack is empty');
-    return true;
-  } else {
-    console.log('Stack has items');
-    return false;
-  }
+  return stack.top === null;
+  // if (!stack.top) {
+  //   console.log('Stack is empty');
+  //   return true;
+  // } else {
+  //   console.log('Stack has items');
+  //   return false;
+  // }
 }
 
 function display(stack) {
@@ -80,34 +82,96 @@ function is_palindrome(s) {
 
 function balanced(s) {
   let stack = new Stack();
-  let last = '';
 
   for (let i = 0; i < s.length; i++) {
     if (s[i] === '(') {
       console.log(`step ${i} push ${s[i]} to stack `);
       stack.push(s[i]);
-    }
-    if (s[i] === ')') {
+    }else if (s[i] === ')') {
       console.log(`step ${i} pop ${s[i]} from stack`);
-      last = stack.pop();
-      if (last === '(' && s[i] !== ')') {
-        return;
-      }
+      const topOfTheList = peek(stack);
+
+      if (!topOfTheList) {
+        console.log('no match for `)`');
+        return false;
+      } stack.pop();
+      
     }
   }
 
-  if (stack.top !== null) {
-    console.log(`character #${s.length - 1}: has no matching closing )`);
+  if (peek(stack)) {
+    console.log('no match for `(`');
     return false;
-  } else {
-    console.log('All parentheses match');
-    return true;
   }
+  console.log('match');
+  return true;
+
+  // if (stack.top !== null) {
+  //   console.log(`character #${s.length - 1}: has no matching closing )`);
+  //   return false;
+  // } else {
+  //   console.log('All parentheses match');
+  //   return true;
+  // }
 }
 
+
+function sortStack(originalStack) {
+  //4       //4
+  //7       //5
+  //5       //7
+  //9       //9
+  let newStack = new Stack();
+
+  while (!isEmpty(originalStack)) {
+    let temp = originalStack.pop();
+    while (!isEmpty(newStack) && peek(newStack) > temp) {
+      originalStack.push(newStack.pop());
+    }
+    newStack.push(temp);
+  }
+  while (!isEmpty(newStack)) {
+    originalStack.push(newStack.pop());
+  }
+
+  // if (!originalStack.top) {
+  //   console.log('Stack is empty');
+  //   return originalStack;
+  // }
+  // while (originalStack.top !== null) {
+  //   tempHolder = originalStack.pop();
+
+  //   while (tempStack.top !== null && tempStack.top > tempHolder) {
+      
+  //   }
+}
+
+
+
+
+
+
+
+
+
+
 function main() {
-  balanced('()()() (((');
-  balanced('()()() ()');
+  let original = new Stack();
+
+  [34, 3, 31, 98, 92, 23].forEach(val => {
+    original.push(val);
+  })
+
+  // sortStack(original);
+  // display(original);
+
+
+
+
+  // balanced('()()() (((');
+  console.log(balanced('()('));
+  console.log(balanced('())'));
+  console.log(balanced('()()'));
   // const starTrek = new Stack();
   // starTrek.push('Kirk');
   // starTrek.push('Spock');
@@ -128,5 +192,6 @@ function main() {
   // console.log(is_palindrome("1001"));
   // console.log(is_palindrome("Tauhida"));
 }
+
 
 main();
