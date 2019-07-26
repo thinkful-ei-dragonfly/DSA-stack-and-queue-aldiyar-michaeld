@@ -70,6 +70,9 @@ function main() {
   startrekQ.enqueue('Sulu');
   startrekQ.enqueue('Checkov');
 
+  startrekQ.dequeue();
+  startrekQ.dequeue();
+
   console.log(display(startrekQ));
 }
 
